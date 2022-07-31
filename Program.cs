@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TestPowerLine
 {
@@ -34,13 +30,13 @@ namespace TestPowerLine
                 }
             }
         }
-        public int GetLeftKms()
-        {
-            return Fuel / AvgFuelConsumationLiterPerKm;
-        }
         public int GetFullTankKms()
         {
             return FuelTankCapacity / AvgFuelConsumationLiterPerKm;
+        }
+        public virtual int GetLeftKms()
+        {
+            return Fuel / AvgFuelConsumationLiterPerKm;
         }
         public double GetTimeToRichDistance(double kms)
         {
@@ -69,6 +65,11 @@ namespace TestPowerLine
 
             }
         }
+        public override int GetLeftKms()
+        {
+            return Fuel / AvgFuelConsumationLiterPerKm * (100-Passengers*6)/100;
+        }
+
 
     }
     class Truck : Car
@@ -93,8 +94,14 @@ namespace TestPowerLine
 
             }
         }
+        public override int GetLeftKms()
+        {
+            return Fuel / AvgFuelConsumationLiterPerKm * (100 - Load/200*4) / 100;
+        }
     }
+    class SportCar : Car { }
 }
+
 //MS SQL
 //create table Customers (Id int IDENTITY(1,1) NOT NULL, Name varchar(50))
 //insert into Customers (Name) values('Max'),('Pavel'),('Ivan'),('Leonid')
