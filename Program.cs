@@ -6,18 +6,18 @@ namespace TestPowerLine
     {
         static void Main(string[] args)
         {
-
         }
     }
-    abstract class Car
+    abstract public class Car
     {
         public string CarType { get; set; }
         public int AvgFuelConsumationLiterPerKm { get; set; }
         public int FuelTankCapacity { get; set; }
         public int Speed { get; set; }
+        private int _fuel { get; set; }
         public int Fuel { get
             {
-                return Fuel;
+                return _fuel;
             } set
             {
                 if(value > FuelTankCapacity)
@@ -26,7 +26,7 @@ namespace TestPowerLine
                 }
                 else
                 {
-                    Fuel = value;
+                    _fuel = value;
                 }
             }
         }
@@ -38,19 +38,20 @@ namespace TestPowerLine
         {
             return Fuel / AvgFuelConsumationLiterPerKm;
         }
-        public double GetTimeToRichDistance(double kms)
+        public TimeSpan GetTimeToRichDistance(double kms)
         {
-            return kms/Convert.ToDouble(Speed);
+            return TimeSpan.FromHours(kms/Speed);
         }
     }
-    class PassengerCar : Car
+    public class PassengerCar : Car
     {
-        int PassengersCapacity { get; set; }
-        int Passengers
+        public int PassengersCapacity { get; set; }
+        public int _passenger { get; set; }
+        private int Passengers
         {
             get
             {
-                return Passengers;
+                return _passenger;
             }
             set
             {
@@ -60,7 +61,7 @@ namespace TestPowerLine
                 }
                 else
                 {
-                    Passengers = value;
+                    _passenger = value;
                 }
 
             }
@@ -74,12 +75,13 @@ namespace TestPowerLine
     }
     class Truck : Car
     {
-        int LoadCapacity { get; set; }
-        int Load
+        public int LoadCapacity { get; set; }
+        private int _load { get; set; }
+        public int Load
         {
             get
             {
-                return Load;
+                return _load;
             }
             set
             {
@@ -89,7 +91,7 @@ namespace TestPowerLine
                 }
                 else
                 {
-                    Load = value;
+                    _load = value;
                 }
 
             }
